@@ -1,0 +1,58 @@
+- name: Running below on deploy node
+  hosts : [deploy]
+  remote_user: jenkins
+  become: yes
+  vars:
+    ansible_ssh_private_key_file: "~/.ssh/id_rsa"
+    ansible_python_interpreter: "/usr/bin/python3"
+    create_containers: 4
+    default_container_command: "nginx -g 'daemon off;'"
+    docker_username: "{{ docker_user_name }}"
+    docker_pwd: "{{ docker_password }}"
+    image_version: "{{ image_tag }}"
+  tasks:
+    - name: Pull docker image
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+    - name: Install required system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu xenial stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt: update_cache=yes name=docker-ce state=latest
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    - name: Log into private registry and force re-authorization
+      docker_login:
+        registry: kardocker.azurecr.io
+        username: "{{docker_username}}"
+        password: "{{docker_pwd}}"
+        reauthorize: yes
+
+    - name: Pull default Docker image
+      docker_image:
+        name: "kardocker.azurecr.io/karthik-app:latest"
+        source: pull
+
+    - name: Create default containers
+      docker_container:
+        name: "karthik-app"
+        image: "kardocker.azurecr.io/karthik-app:latest"
+        command: "{{ default_container_command }}"
+        state: started
+        ports:
+          - "80:80"
+      with_sequence: count=2
