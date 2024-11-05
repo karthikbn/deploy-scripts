@@ -30,6 +30,13 @@ on:
         default: ""
       tag-to-deploy:
         description: "tag-to-deploy"
+  
         required: true
         type: string
         default: ""
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: my-step
+        run: echo "Hello World!"
