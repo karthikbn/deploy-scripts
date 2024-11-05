@@ -1,0 +1,35 @@
+name: Subsription Automation Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      subscription-ids:
+        description: "subscription-ids"
+        required: true
+        type: string
+        default: ""
+      run-apply:
+        description: "Apply terraform to subscription.  Uncheck to run plan only."
+        required: true
+        type: boolean
+        default: true
+      subscription-id:
+        description: "subscription-id"
+        required: true
+        type: string
+        default: ""
+      ms-id:
+        description: "ms-id"
+        required: true
+        type: string
+        default: ""
+      environment:
+        description: "environment"
+        required: true
+        type: string
+        default: ""
+      tag-to-deploy:
+        description: "tag-to-deploy"
+        required: true
+        type: string
+        default: ""
