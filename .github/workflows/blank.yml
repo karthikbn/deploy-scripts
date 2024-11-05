@@ -34,9 +34,23 @@ on:
         required: true
         type: string
         default: ""
+        
 jobs:
-  my-job:
+
+  #Workflow Trigger for Step 13 -  Apply custom role to Prod
+  trigger_external_workflow:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: Apply PIM to Prod Customers
+        uses: actions/checkout@v3
+        with:
+          workflow: 'Apply PIM to Prod Customers'
+          repo: 'optum-labs/Apollo.PIM.Customer/.github/workflows/apply-pim-prod.yml @main'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: 'main'
+          secrets: inherit
+          subscription-ids: ${{github.event.inputs.subscription-ids}}
+          workflow-version: main
+        env:
+          CONDITION: ${{ github.event.head_commit.message }}
