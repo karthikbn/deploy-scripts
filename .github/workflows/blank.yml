@@ -37,7 +37,7 @@ on:
 jobs:
 
   #Workflow Trigger for Step 13 -  Apply custom role to Prod
-  trigger_external_workflow:
+  trigger_external_workflow1:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -49,9 +49,66 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: 'main'
           secrets: inherit
-          #subscription-ids: [${{github.event.inputs.subscription-ids}}]
+          subscription-ids: [${{github.event.inputs.subscription-ids}}]
           workflow-version: main
         env:
           CONDITION: ${{ github.event.head_commit.message }}
 
- 
+  #Workflow Trigger for Step 14 -  Onboard Azure UAIS Account
+  trigger_external_workflow2:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: IAC
+        uses: actions/checkout@v3
+        with:
+          workflow: 'Onboard UAIS Account'
+          repo: 'optum-labs/Apollo.UAIS.Accounts/.github/onboard-azure.yml@main'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: 'main'
+          secrets: inherit
+          subscription-id: ${{github.event.inputs.subscription-ids}}
+          ms-id: ${{github.event.inputs.ms-id}}
+          environment: ${{github.event.inputs.environment}}
+          workflow-version: main
+        env:
+          CONDITION: ${{ github.event.head_commit.message }}
+
+
+  #Workflow Trigger for Step 15 - custom roles Azure UAIS Account
+  trigger_external_workflow3:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Adding custom role
+        uses: actions/checkout@v3
+        with:
+          workflow: 'custom role to UAIS Account'
+          repo: 'optum-labs/Apollo.UAIS.Accounts/.github/workflows/custom-role.yml@main'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: 'main'
+          secrets: inherit
+          environment: ${{github.event.inputs.environment}}
+          run-plan: ${{ github.event.inputs.run-plan }}
+          workflow-version: main
+        env:
+          CONDITION: ${{ github.event.head_commit.message }}
+
+  #Workflow Trigger for Step 16 - Transit Hub Deployment
+  trigger_external_workflow4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Transit Hub Deployment
+        uses: actions/checkout@v3
+        with:
+          workflow: 'Transit hub deploy non prod'
+          repo: 'optum-labs/Apollo.IaC.Hub/.github/workflows/apply-to-nonprod.yml@main'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: 'main'
+          secrets: inherit
+          subscription-id: ${{github.event.inputs.subscription-id}}
+          tag-to-deploy: 'main'
+          run-plan: ${{ github.event.inputs.run-plan }}
+          workflow-version: main
+        env:
+          CONDITION: ${{ github.event.head_commit.message }}
