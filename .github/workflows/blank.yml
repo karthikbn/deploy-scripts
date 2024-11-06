@@ -37,7 +37,7 @@ on:
 jobs:
 
   #Workflow Trigger for Step 13 -  Apply custom role to Prod
-  trigger_external_workflow:
+  trigger_external_workflow1:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -54,7 +54,7 @@ jobs:
         env:
           CONDITION: ${{ github.event.head_commit.message }}
   #Workflow Trigger for Step 14 -  Onboard Azure UAIS Account
-  trigger_external_workflow:
+  trigger_external_workflow2:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -73,7 +73,7 @@ jobs:
         env:
           CONDITION: ${{ github.event.head_commit.message }}
   #Workflow Trigger for Step 15 - custom roles Azure UAIS Account
-  trigger_external_workflow:
+  trigger_external_workflow3:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -91,7 +91,7 @@ jobs:
         env:
           CONDITION: ${{ github.event.head_commit.message }}
   #Workflow Trigger for Step 16 - Transit Hub Deployment
-  trigger_external_workflow:
+  trigger_external_workflow4:
     runs-on: ubuntu-latest
     steps:
       - name: Transit Hub Deployment
