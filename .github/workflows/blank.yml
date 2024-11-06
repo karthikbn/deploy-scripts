@@ -44,7 +44,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: 'main'
           secrets: inherit
-          subscription-ids: [${{github.event.inputs.subscription-ids}}]
+          subscription-ids: ${{github.event.inputs.subscription-ids}}
           workflow-version: main
         env:
           CONDITION: ${{ github.event.head_commit.message }}
