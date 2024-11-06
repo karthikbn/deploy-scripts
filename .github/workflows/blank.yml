@@ -13,6 +13,11 @@ on:
         required: true
         type: boolean
         default: true
+      #subscription-id:
+      #  description: "subscription-id"
+      #  required: true
+      #  type: string
+      #  default: ""
       ms-id:
         description: "ms-id"
         required: true
@@ -32,7 +37,7 @@ on:
 jobs:
 
   #Workflow Trigger for Step 13 -  Apply custom role to Prod
-  trigger_external_workflow1:
+  trigger_external_workflow:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -48,9 +53,8 @@ jobs:
           workflow-version: main
         env:
           CONDITION: ${{ github.event.head_commit.message }}
-
   #Workflow Trigger for Step 14 -  Onboard Azure UAIS Account
-  trigger_external_workflow2:
+  trigger_external_workflow:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -68,10 +72,8 @@ jobs:
           workflow-version: main
         env:
           CONDITION: ${{ github.event.head_commit.message }}
-
-
   #Workflow Trigger for Step 15 - custom roles Azure UAIS Account
-  trigger_external_workflow3:
+  trigger_external_workflow:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -88,11 +90,9 @@ jobs:
           workflow-version: main
         env:
           CONDITION: ${{ github.event.head_commit.message }}
-
   #Workflow Trigger for Step 16 - Transit Hub Deployment
-  trigger_external_workflow4:
+  trigger_external_workflow:
     runs-on: ubuntu-latest
-    steps:
       - name: Transit Hub Deployment
         uses: actions/checkout@v3
         with:
