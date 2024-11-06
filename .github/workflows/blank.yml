@@ -97,6 +97,7 @@ jobs:
   #Workflow Trigger for Step 16 - Transit Hub Deployment
   trigger_external_workflow:
     runs-on: ubuntu-latest
+    steps:
       - name: Transit Hub Deployment
         uses: actions/checkout@v3
         with:
