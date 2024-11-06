@@ -13,11 +13,6 @@ on:
         required: true
         type: boolean
         default: true
-      #subscription-id:
-      #  description: "subscription-id"
-      #  required: true
-      #  type: string
-      #  default: ""
       ms-id:
         description: "ms-id"
         required: true
@@ -49,7 +44,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: 'main'
           secrets: inherit
-          #subscription-ids: [${{github.event.inputs.subscription-ids}}]
+          subscription-ids: [${{github.event.inputs.subscription-ids}}]
           workflow-version: main
         env:
           CONDITION: ${{ github.event.head_commit.message }}
