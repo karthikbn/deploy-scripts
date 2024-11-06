@@ -43,7 +43,6 @@ jobs:
           repo: 'optum-labs/Apollo.PIM.Customer/.github/workflows/apply-pim-prod.yml @main'
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: 'main'
-          secrets: inherit
           subscription-ids: ${{github.event.inputs.subscription-ids}}
           workflow-version: main
         env:
