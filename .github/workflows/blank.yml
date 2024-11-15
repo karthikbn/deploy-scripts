@@ -18,6 +18,6 @@ jobs:
       - name: Echo and Sleep 
         run: |
               echo "Inside Echo and Sleep"
-              echo "Input Value : ${{github.event.inputs.values}}
+              echo "Input Value : ${{github.event.inputs.values}}"
               sleep 20
               exit 0
