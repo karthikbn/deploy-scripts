@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo and Sleep 
-        uses: actions/checkout@v3
         run: |
               echo "Inside Echo and Sleep"
               echo "Input Value : ${{github.event.inputs.values}}
