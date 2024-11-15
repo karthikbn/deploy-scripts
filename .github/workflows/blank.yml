@@ -8,14 +8,20 @@ on:
         required: true
         type: string
         default: ""
-      
+    id:
+      values:
+        description: "random id"
+        required: false
+        type: string
+        default: ""
+
 
 jobs:
   #Test Job
   trigger_external_workflow1:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo and Sleep 
+      - name: Echo and Sleep
         run: |
               echo "Inside Echo and Sleep"
               echo "Input Value : ${{github.event.inputs.values}}"
