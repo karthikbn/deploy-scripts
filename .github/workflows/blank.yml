@@ -1,4 +1,4 @@
-name: Subsription Automation Workflow
+name: Test WorkFlow
 
 on:
   workflow_dispatch:
@@ -21,6 +21,8 @@ jobs:
   sample:
     runs-on: ubuntu-latest
     steps:
+      - name: ${{github.event.inputs.id}}
+        run: echo run identifier ${{ inputs.id }}
       - name: Echo
         run: |
               echo "Inside Echo and Sleep"
@@ -31,11 +33,3 @@ jobs:
         run: |
               echo "Inside Test"
               echo "Bye"
-
-  id:
-    name: Workflow ID Provider
-    needs: [sample]
-    runs-on: ubuntu-latest
-    steps:
-      - name: ${{github.event.inputs.id}}
-        run: echo run identifier ${{ inputs.id }}
