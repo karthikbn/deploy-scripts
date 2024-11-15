@@ -25,5 +25,5 @@ jobs:
         run: |
               echo "Inside Echo and Sleep"
               echo "Input Value : ${{github.event.inputs.values}}"
-              sleep 20
+              sleep 60
               exit 0
