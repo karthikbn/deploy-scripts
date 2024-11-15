@@ -18,7 +18,7 @@ on:
 jobs:
 
   #Test Job
-  trigger_external_workflow1:
+  sample:
     runs-on: ubuntu-latest
     steps:
       - name: Echo
@@ -26,7 +26,7 @@ jobs:
               echo "Inside Echo and Sleep"
               echo "Input Value : ${{github.event.inputs.values}}"
       - name: Sleep
-        run: sleep 60
+        run: sleep 120
       - name: Test
         run: |
               echo "Inside Test"
@@ -34,6 +34,7 @@ jobs:
 
   id:
     name: Workflow ID Provider
+    needs: [sample]
     runs-on: ubuntu-latest
     steps:
       - name: ${{github.event.inputs.id}}
