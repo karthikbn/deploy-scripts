@@ -16,6 +16,7 @@ on:
 
 
 jobs:
+
   #Test Job
   trigger_external_workflow1:
     runs-on: ubuntu-latest
@@ -30,3 +31,10 @@ jobs:
         run: |
               echo "Inside Test"
               echo "Bye"
+
+  id:
+    name: Workflow ID Provider
+    runs-on: ubuntu-latest
+    steps:
+      - name: ${{github.event.inputs.id}}
+        run: echo run identifier ${{ inputs.id }}
