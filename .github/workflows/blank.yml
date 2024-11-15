@@ -20,9 +20,13 @@ jobs:
   trigger_external_workflow1:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo and Sleep
+      - name: Echo
         run: |
               echo "Inside Echo and Sleep"
               echo "Input Value : ${{github.event.inputs.values}}"
-              sleep 60
-              exit 0
+      - name: Sleep
+        run: sleep 60
+      - name: Test
+        run: |
+              echo "Inside Test"
+              echo "Bye"
