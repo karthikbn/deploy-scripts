@@ -8,8 +8,7 @@ on:
         required: true
         type: string
         default: ""
-    id:
-      values:
+      id:
         description: "random id"
         required: false
         type: string
