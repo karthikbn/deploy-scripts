@@ -33,3 +33,15 @@ jobs:
         run: |
               echo "Inside Test"
               echo "Bye"
+
+  second:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo
+        run: |
+              echo "Inside Echo and Sleep"
+              echo "Input Value : ${{github.event.inputs.values}}"
+      - name: Test
+        run: |
+              echo "Inside Test"
+              echo "Bye"
