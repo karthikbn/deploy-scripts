@@ -1,6 +1,18 @@
 name: Test WorkFlow
 
 on:
+  workflow_call:
+    inputs:
+      values:
+        description: "input"
+        required: true
+        type: string
+        default: ""
+      id:
+        description: "random id"
+        required: false
+        type: string
+        default: ""
   workflow_dispatch:
     inputs:
       values:
